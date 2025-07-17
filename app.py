@@ -73,14 +73,17 @@ if st.button("위험도 예측"):
      # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
     x_input_injury = x_input.reindex(columns=expected_cols)
-    pred_injury = injury_model.predict(x_input_injury)[0]
+    pred_injury = injury_model.predict(x_input_injury)
 
-    # pred_injury가 숫자인 경우만 라벨로 디코딩
-    if isinstance(pred_injury, (int, np.integer)) or str(pred_injury).isdigit():
-        decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury)])[0]
+    # 🔧 예측값 처리
+    # pred_injury는 배열이라 첫 번째 요소만 추출
+    pred_injury_value = pred_injury[0] if isinstance(pred_injury, (list, np.ndarray)) else pred_injury
+
+    # 숫자형이면 디코딩, 아니면 그대로 사용
+    if isinstance(pred_injury_value, (int, np.integer)) or str(pred_injury_value).isdigit():
+        decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury_value)])[0]
     else:
-        decoded_injury = pred_injury
-
+        decoded_injury = str(pred_injury_value)
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
