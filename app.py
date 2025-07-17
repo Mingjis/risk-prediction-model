@@ -97,7 +97,7 @@ if st.button("위험도 예측"):
     # ✅ 결과 출력
     st.success("예측 결과")
     st.write(f"**예측 기인물:** {decoded_cause}")
-    st.write(f"**예측 부상유형:** {decoded_injury}")
+    st.write(f"pred_injury (raw): {pred_injury}")
     st.write(f"**기인물 위험도:** {cause_risk:.2f}%")
     st.write(f"**부상유형 위험도:** {injury_risk:.2f}%")
     st.markdown(f"### 💀 최종 사망 위험도: **{final_risk:.2f}%**")
