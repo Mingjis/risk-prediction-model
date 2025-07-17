@@ -78,16 +78,11 @@ if st.button("위험도 예측"):
     pred_injury = injury_model.predict(x_input_injury)
 
     # 예측 결과 정제
-    if isinstance(pred_injury, np.ndarray):
-        pred_injury_value = pred_injury[0]
-    else:
-        pred_injury_value = pred_injury
-
-    # 리스트 안에 문자열이 또 있는 경우
-    if isinstance(pred_injury_value, (list, np.ndarray)):
-        decoded_injury = str(pred_injury_value[0])
-    else:
-        decoded_injury = str(pred_injury_value)
+    decoded_injury = pred_injury
+    if isinstance(decoded_injury, (np.ndarray, list)):
+        while isinstance(decoded_injury, (np.ndarray, list)):
+            decoded_injury = decoded_injury[0]
+    decoded_injury = str(decoded_injury)
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
