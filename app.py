@@ -70,24 +70,24 @@ if st.button("위험도 예측"):
     pred_cause = cause_model.predict(x_input_cause)[0]
     decoded_cause = encoders_cause["Original cause material"].inverse_transform([pred_cause])[0]
 
-     # 🧠 부상유형 예측
+     import numpy as np  # 꼭 필요
+
+    # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
     x_input_injury = x_input.reindex(columns=expected_cols)
     pred_injury = injury_model.predict(x_input_injury)
 
-    # 예측 결과에서 문자열 직접 추출
-    if isinstance(pred_injury, (list, np.ndarray)):
+    # 예측 결과 정제
+    if isinstance(pred_injury, np.ndarray):
         pred_injury_value = pred_injury[0]
     else:
         pred_injury_value = pred_injury
 
-    # 문자열 리스트로 감싸진 경우 처리
-    if isinstance(pred_injury_value, list):
-        pred_injury_value = pred_injury_value[0]
-
-    # 최종 부상유형 문자열로 변환
-    decoded_injury = str(pred_injury_value)
-
+    # 리스트 안에 문자열이 또 있는 경우
+    if isinstance(pred_injury_value, (list, np.ndarray)):
+        decoded_injury = str(pred_injury_value[0])
+    else:
+        decoded_injury = str(pred_injury_value)
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
