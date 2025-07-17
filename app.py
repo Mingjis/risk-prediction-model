@@ -67,13 +67,13 @@ if st.button("위험도 예측"):
     # 🧠 기인물 예측
     x_input_cause = x_input[columns]
     pred_cause = cause_model.predict(x_input_cause)[0]
-    decoded_cause = encoders_cause["Original cause material"].inverse_transform([int(pred_cause)])[0]
+    decoded_cause = encoders_cause["Original cause material"].inverse_transform([pred_cause])[0]
 
     # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
     x_input_injury = x_input.reindex(columns=expected_cols)
     pred_injury = injury_model.predict(x_input_injury)[0]
-    decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury)])[0]
+    decoded_injury = encoders_injury["Injury type"].inverse_transform([pred_injury])[0]
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
@@ -84,7 +84,6 @@ if st.button("위험도 예측"):
     st.success("예측 결과")
     st.write(f"**예측 기인물:** {decoded_cause}")
     st.write(f"**예측 부상유형:** {decoded_injury}")
-    st.write(f"**기인물 위험도:** {cause_risk * 100:.2f}%")
-    st.write(f"**부상유형 위험도:** {injury_risk * 100:.2f}%")
-    st.markdown(f"### 💀 최종 사망 위험도: **{final_risk * 100:.2f}%**")
-    
+    st.write(f"**기인물 위험도:** {cause_risk:.2f}%")
+    st.write(f"**부상유형 위험도:** {injury_risk:.2f}%")
+    st.markdown(f"### 💀 최종 사망 위험도: **{final_risk:.2f}%**")
