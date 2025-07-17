@@ -76,8 +76,8 @@ if st.button("위험도 예측"):
     decoded_injury = pred_injury  # ✔️ inverse_transform 제거
 
     # ☠️ 위험도 계산
-    cause_risk = risk_data['cause'].get(decoded_cause, 0)
-    injury_risk = risk_data['injury'].get(decoded_injury, 0)
+    cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
+    injury_risk = risk_data['injury_risk_dict'].get(decoded_injury, 0)
     final_risk = (cause_risk + injury_risk) / 2
 
     # ✅ 결과 출력
