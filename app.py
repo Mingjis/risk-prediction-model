@@ -67,13 +67,13 @@ if st.button("위험도 예측"):
     # 🧠 기인물 예측
     x_input_cause = x_input[columns]
     pred_cause = cause_model.predict(x_input_cause)[0]
-    decoded_cause = pred_cause  # ✔️ inverse_transform 제거
+    decoded_cause = pred_cause.item()  # ✔️ inverse_transform 제거
 
     # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
     x_input_injury = x_input.reindex(columns=expected_cols)
     pred_injury = injury_model.predict(x_input_injury)[0]
-    decoded_injury = pred_injury  # ✔️ inverse_transform 제거
+    decoded_injury = pred_injury.item()  # ✔️ inverse_transform 제거
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
