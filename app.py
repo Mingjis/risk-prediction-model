@@ -75,12 +75,11 @@ if st.button("위험도 예측"):
     x_input_injury = x_input.reindex(columns=expected_cols)
     pred_injury = injury_model.predict(x_input_injury)[0]
 
-    # numpy 타입이면 .item()으로 추출
-    if isinstance(pred_injury, np.ndarray):
-        pred_injury = pred_injury.item()
-
-    # inverse_transform을 통해 실제 라벨로 복원
-    decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury)])[0]
+    # pred_injury가 숫자인 경우만 라벨로 디코딩
+    if isinstance(pred_injury, (int, np.integer)) or str(pred_injury).isdigit():
+        decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury)])[0]
+    else:
+        decoded_injury = pred_injury
 
 
     # ☠️ 위험도 계산
