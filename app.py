@@ -4,6 +4,7 @@ import pickle
 import os
 import requests
 from catboost import CatBoostClassifier
+import numpy as np
 
 # 🎯 Google Drive에서 모델 다운로드 함수
 def download_model_from_drive(file_id, output_path):
