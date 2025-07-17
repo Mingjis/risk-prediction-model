@@ -235,14 +235,14 @@ def main():
                 
                 col3, col4, col5 = st.columns(3)
                 with col3:
-                    st.metric("💀 최종 사망 위험도", f"{final_risk:.4f}")
+                    st.metric("💀 최종 사망 위험도", f"{final_risk_percent:.2f}%")
                 with col4:
                     st.metric("위험 수준", risk_level)
                 with col5:
                     st.info(risk_msg)
                 
                 # 백분율로 표시
-                st.markdown(f"### 💀 최종 사망 위험도: **{final_risk * 100:.2f}%**")
+                st.markdown(f"### 💀 최종 사망 위험도: **{final_risk_percent:.2f}%**")
                 
                 # 추가 정보
                 with st.expander("예측 방법 정보"):
