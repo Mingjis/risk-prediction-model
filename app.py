@@ -195,7 +195,7 @@ def main():
                     )
                     
                     # 위험도 표시
-                    risk_color = "🔴" if injury_risk > 0.3 else "🟡" if injury_risk > 0.15 else "🟢"
+                    risk_color = "🔴" if injury_risk > 30 else "🟡" if injury_risk > 15 else "🟢"
                     st.metric(
                         label="상해 위험도",
                         value=f"{risk_color} {injury_risk:.4f}",
@@ -211,7 +211,7 @@ def main():
                     )
                     
                     # 위험도 표시
-                    risk_color = "🔴" if cause_risk > 0.3 else "🟡" if cause_risk > 0.15 else "🟢"
+                    risk_color = "🔴" if cause_risk > 30 else "🟡" if cause_risk > 15 else "🟢"
                     st.metric(
                         label="원인 위험도",
                         value=f"{risk_color} {cause_risk:.4f}",
@@ -223,10 +223,10 @@ def main():
                 st.subheader("📊 종합 위험도 평가")
                 
                 # 위험도 레벨 결정
-                if final_risk > 0.3:
+                if final_risk > 30:
                     risk_level = "🔴 높음"
                     risk_msg = "매우 주의가 필요합니다!"
-                elif final_risk > 0.15:
+                elif final_risk > 15:
                     risk_level = "🟡 보통"
                     risk_msg = "적절한 안전조치가 필요합니다."
                 else:
