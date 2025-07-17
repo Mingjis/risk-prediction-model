@@ -198,7 +198,7 @@ def main():
                     risk_color = "🔴" if injury_risk > 30 else "🟡" if injury_risk > 15 else "🟢"
                     st.metric(
                         label="상해 위험도",
-                        value=f"{risk_color} {injury_risk:.4f}",
+                        value=f"{risk_color} {injury_risk:.4f}%",
                         help="높을수록 위험한 상해 유형입니다"
                     )
                 
@@ -214,7 +214,7 @@ def main():
                     risk_color = "🔴" if cause_risk > 30 else "🟡" if cause_risk > 15 else "🟢"
                     st.metric(
                         label="원인 위험도",
-                        value=f"{risk_color} {cause_risk:.4f}",
+                        value=f"{risk_color} {cause_risk:.4f}%",
                         help="높을수록 위험한 원인 자료입니다"
                     )
                 
