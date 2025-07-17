@@ -241,8 +241,6 @@ def main():
                 with col5:
                     st.info(risk_msg)
                 
-                # 백분율로 표시
-                st.markdown(f"### 💀 최종 사망 위험도: **{final_risk * 100:.2f}%**")
                 
                 # 추가 정보
                 with st.expander("예측 방법 정보"):
