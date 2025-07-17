@@ -84,6 +84,9 @@ if st.button("위험도 예측"):
         decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury_value)])[0]
     else:
         decoded_injury = str(pred_injury_value)
+    # ✅ 리스트로 반환된 경우 처리
+    if isinstance(decoded_injury, list):
+        decoded_injury = decoded_injury[0]
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause_risk_dict'].get(decoded_cause, 0)
