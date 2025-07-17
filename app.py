@@ -23,7 +23,7 @@ def load_models():
     # 📥 부상유형 모델 다운로드
     download_model_from_drive(injury_type_model_id, injury_type_model_path)
 
-    # 📦 기인물 모델 (로컬 포함 가정)
+    # 📦 기인물 모델
     cause_model = CatBoostClassifier()
     cause_model.load_model("cause_material_model.cbm")
 
@@ -65,15 +65,15 @@ if st.button("위험도 예측"):
     x_input = pd.DataFrame([encoded_values], columns=columns)
 
     # 🧠 기인물 예측
-    x_input_cause = x_input[columns]  # 그대로 사용
+    x_input_cause = x_input[columns]
     pred_cause = cause_model.predict(x_input_cause)[0]
-    decoded_cause = encoders_cause["Original cause material"].inverse_transform([int(pred_cause)])[0]
+    decoded_cause = pred_cause  # ✔️ inverse_transform 제거
 
-    # 🧠 부상유형 예측 (컬럼 순서 및 이름 강제 맞춤)
+    # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
     x_input_injury = x_input.reindex(columns=expected_cols)
     pred_injury = injury_model.predict(x_input_injury)[0]
-    decoded_injury = encoders_injury["Injury type"].inverse_transform([int(pred_injury)])[0]
+    decoded_injury = pred_injury  # ✔️ inverse_transform 제거
 
     # ☠️ 위험도 계산
     cause_risk = risk_data['cause'].get(decoded_cause, 0)
