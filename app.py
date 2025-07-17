@@ -235,7 +235,7 @@ def main():
                 
                 col3, col4, col5 = st.columns(3)
                 with col3:
-                    st.metric("💀 최종 사망 위험도", f"{final_risk:.4f}")
+                    st.metric("💀 최종 사망 위험도", f"{final_risk:.4f}%")
                 with col4:
                     st.metric("위험 수준", risk_level)
                 with col5:
