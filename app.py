@@ -70,7 +70,7 @@ if st.button("위험도 예측"):
     pred_cause = cause_model.predict(x_input_cause)[0]
     decoded_cause = encoders_cause["Original cause material"].inverse_transform([pred_cause])[0]
 
-     import numpy as np  # 꼭 필요
+    import numpy as np
 
     # 🧠 부상유형 예측
     expected_cols = injury_model.feature_names_
