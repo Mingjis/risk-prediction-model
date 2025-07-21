@@ -10,7 +10,7 @@ warnings.filterwarnings('ignore')
 
 # 페이지 설정
 st.set_page_config(
-    page_title="건설 안전 예측 시스템",
+    page_title="건설현장 사망사고 사전예방 시스템",
     page_icon="🏗️",
     layout="wide"
 )
